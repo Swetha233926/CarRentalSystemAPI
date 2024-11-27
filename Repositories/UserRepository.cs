@@ -33,7 +33,7 @@ namespace CarRentalSystemAPI.Repositories
            
         }
 
-        //get user by email id
+        //get user by email_id
         public async Task<User> GetUserByEmail(string email)
         {
             return await context.users.FirstOrDefaultAsync(u => u.User_email == email);
