@@ -17,7 +17,7 @@ namespace CarRentalSystemAPI.Services
         {
             _notificationRepository = notificationRepository;
             _configuration = configuration;
-            //_sendGridClient = new SendGrid.SendGridClient(_configuration["SendGrid:ApiKey"]);
+            _sendGridClient = new SendGrid.SendGridClient(_configuration["SendGrid:ApiKey"]);
         }
 
         public async Task SendNotification(NotificationDto notificationDto)
@@ -36,14 +36,14 @@ namespace CarRentalSystemAPI.Services
             message.AddTo(notificationDto.ToEmail);
 
             // Send the email using SendGrid
-            /*var response = await _sendGridClient.SendEmailAsync(message);
+            var response = await _sendGridClient.SendEmailAsync(message);
 
             if (response.StatusCode != System.Net.HttpStatusCode.OK &&
                 response.StatusCode != System.Net.HttpStatusCode.Accepted)
             {
                 throw new Exception($"Failed to send email. Status Code: {response.StatusCode}");
             }
-            */
+            
 
             // Log the notification to the database (optional)
             await _notificationRepository.LogNotification(notificationDto.ToEmail, notificationDto.Subject, notificationDto.Body);

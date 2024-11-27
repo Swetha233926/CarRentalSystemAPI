@@ -21,6 +21,10 @@ namespace CarRentalSystemAPI.Controllers
         public async Task<ActionResult<User>> GetUserById(int id)
         {
             var user= await userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
             return Ok(user);
         }
 
@@ -29,6 +33,10 @@ namespace CarRentalSystemAPI.Controllers
         public async Task<ActionResult<User>> GetUserByEmail(string email)
         {
             var user = await userService.GetUserByEmail(email);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
             return Ok(user);
         }
 
@@ -50,6 +58,11 @@ namespace CarRentalSystemAPI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
+            var user = await userService.GetUserById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
             await userService.DeleteUser(id);
             return Ok();
         } 

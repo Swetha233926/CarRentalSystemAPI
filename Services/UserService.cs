@@ -33,6 +33,7 @@ namespace CarRentalSystemAPI.Services
             return await userRepository.GetUserByEmail(email);
         }
 
+
         public async Task DeleteUser(int id)
         {
             await userRepository.DeleteUser(id);

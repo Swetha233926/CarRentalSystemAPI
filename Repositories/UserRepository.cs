@@ -1,5 +1,6 @@
 ﻿using CarRentalSystemAPI.Data;
 using CarRentalSystemAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRentalSystemAPI.Repositories
 {
@@ -35,8 +36,9 @@ namespace CarRentalSystemAPI.Repositories
         //get user by email
         public async Task<User> GetUserByEmail(string email)
         {
-            return await context.users.FindAsync(email);
+            return await context.users.FirstOrDefaultAsync(u => u.User_email == email);
         }
+
 
         //delete user by Id
         public async Task DeleteUser(int id)
